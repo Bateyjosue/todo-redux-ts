@@ -7,9 +7,7 @@ interface Todo {
 }
 
 const storeData = localStorage.getItem('todo')
-
 const initialState: Todo[] = storeData ? JSON.parse(storeData) : []
-
 
 export const todoSlice = createSlice({
   name: "todo",
@@ -19,7 +17,7 @@ export const todoSlice = createSlice({
       state.push(action.payload)
       localStorage.setItem('todo', JSON.stringify(state))
     },
-    
+
     deleteTodo: (state, action: PayloadAction<string>) => {
       const updateTodo = state.filter(todo => todo.id !== action.payload)
       localStorage.setItem('todo', JSON.stringify(updateTodo))
