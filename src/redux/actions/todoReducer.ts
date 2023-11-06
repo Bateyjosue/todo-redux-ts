@@ -19,7 +19,11 @@ export const todoSlice = createSlice({
       state.push(action.payload)
       localStorage.setItem('todo', JSON.stringify(state))
     },
-
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      const updateTodo = state.filter(todo => todo.id !== action.payload)
+      localStorage.setItem('todo', JSON.stringify(updateTodo))
+      return updateTodo
+    },
   }
 });
 
