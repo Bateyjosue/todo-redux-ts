@@ -12,6 +12,11 @@ function Todo() {
   const dispatch = useDispatch()
   const todos: TodoPros[] = useSelector((state: TodoPros) => state.todo)
 
+  const handleRemove: MouseEventHandler<HTMLSpanElement> = (event) => {
+    event.preventDefault()
+    const { id } = event.target as HTMLSpanElement
+    dispatch(deleteTodo(id));
+  }
 
   return (
     todos.length > 0
