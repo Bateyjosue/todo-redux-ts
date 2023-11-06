@@ -1,20 +1,28 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Todo {
-  id: number
+  id: string
   task: string
   completed: boolean
 }
 
+const storeData = localStorage.getItem('todo')
+
+const initialState: Todo[] = storeData ? JSON.parse(storeData) : []
+
 
 export const todoSlice = createSlice({
   name: "todo",
-  initialState: [],
+  initialState,
   reducers: {
     addTodo: (state, action: PayloadAction<Todo>) => {
-      [...state, action.payload] 
-    }
+      state.push(action.payload)
+      localStorage.setItem('todo', JSON.stringify(state))
+    },
+
   }
 });
+
+export const { addTodo, deleteTodo, completeTodo } = todoSlice.actions;
 
 export default todoSlice.reducer
