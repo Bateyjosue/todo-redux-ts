@@ -25,13 +25,28 @@ export const todoSlice = createSlice({
     },
 
     completeTodo: (state, action: PayloadAction<string>) => { 
-      const updateTodo = state.map(todo => todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo)
+      const updateTodo = state.map(todo => todo.id === action.payload
+        ? {
+          ...todo,
+          completed: !todo.completed
+        }
+        : todo)
+      localStorage.setItem('todo', JSON.stringify(updateTodo))
+      return updateTodo
+    },
+    editTodo: (state, action) => {
+      const updateTodo = state.map(todo => todo.id === action.payload.id
+        ? {
+          ...todo,
+          task: action.payload.task
+        }
+        : todo)
       localStorage.setItem('todo', JSON.stringify(updateTodo))
       return updateTodo
     }
   }
 });
 
-export const { addTodo, deleteTodo, completeTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, completeTodo, editTodo } = todoSlice.actions;
 
 export default todoSlice.reducer
