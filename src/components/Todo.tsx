@@ -9,14 +9,17 @@ interface TodoPros {
   completed: boolean
 }
 interface EditedProps {
-  id: string, task: string
+  id: string,
+  task: string
+}
+interface RootState {
+  todo: TodoPros[];
 }
 
 function Todo() {
   const dispatch = useDispatch()
-  const todos: TodoPros[] = useSelector((state: TodoPros) => state.todo)
+  const todos: TodoPros[] = useSelector((state: RootState) => state.todo)
 
-  console.log(todos);
   const [edit, setEdit] = useState(false)
   const [editText, setEditText] = useState<EditedProps>({ id: '', task: '' })
 
@@ -38,7 +41,6 @@ function Todo() {
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    // event.preventDefault()
     const { value } = event.target as HTMLInputElement
     setEditText(prev => {
       return {
@@ -77,7 +79,6 @@ function Todo() {
               todo.completed && 'line-through',
               edit && editText.id === todo.id ? 'hidden' : 'block'
             ])} htmlFor="task">{todo.task}</label>
-            {/* input to update task*/}
             <input
               className={classNames([
                 "outline-none absolute left-14 text-red-200",

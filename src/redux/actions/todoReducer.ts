@@ -1,3 +1,4 @@
+/* eslint-disable filenames-simple/naming-convention */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface Todo {
